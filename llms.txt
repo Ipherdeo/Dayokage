@@ -3,13 +3,13 @@
 > Portfolio for Ifedayo Otegbola, a web developer and product builder based in Ibadan, Nigeria.
 
 ## Main page
-- [Portfolio](https://dayokage.netlify.app/): Biography, selected projects, working approach, and contact links.
+- [Portfolio](https://dayokage.vercel.app/): Biography, selected projects, working approach, and contact links.
 
 ## Projects
 - GradeIQ: Live academic-planning web product. Live site: https://thegradeiq.netlify.app | Source: https://github.com/Ipherdeo/GradeIQ
 - Brain MRI Classifier: Completed TensorFlow and EfficientNetB0 machine-learning evaluation project. Source: https://github.com/Ipherdeo/Brain-MRI-Classifier
 - CropCompass: In-development harvest-timing decision-support product for South-West Nigerian smallholder farmers. Prototype: https://crop-compass-five.vercel.app | Source: https://github.com/Ipherdeo/CropCompass
-- Polymarket Trading System: Active private market-research and execution tooling. Public source: https://github.com/Ipherdeo/Polymarket-Trading-Bot
+- Polymarket Trading System: Deployed and operational ETH 5-minute prediction-market bot with probability modelling, execution controls, and reconciliation. Public source: https://github.com/Ipherdeo/Polymarket-Trading-Bot
 - ETH Signal Agent: Ritual Chain testnet learning project; it does not trade or custody funds. Source: https://github.com/Ipherdeo/ETH-Signal-Agent
 - Bayse BTC Research Bot: Observation-phase research system for NGN-denominated BTC binary markets. Source: https://github.com/Ipherdeo/Bayse-Bot
 - Bybit Spot Trading Bot: Demo-validation spot-trading system with paper workflows and safety controls. Source: https://github.com/Ipherdeo/Quidax-Trading-Bot

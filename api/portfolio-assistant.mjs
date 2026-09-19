@@ -4,11 +4,17 @@ const LIMIT = 5;
 const COOLDOWN_MS = 8_000;
 const DAILY_LIMIT = 60;
 
-const portfolioContext = `You are the concise guide for Ifedayo Otegbola's portfolio. Answer only from this context. Do not invent metrics, claim financial performance, expose secrets, provide trading advice, or discuss personal information beyond this portfolio.
+const portfolioContext = `You are the concise guide for Ifedayo Otegbola's portfolio. Answer only from the portfolio dossier provided in this prompt. Be specific: identify the mechanism, implementation choice, project stage, or limitation that directly answers the visitor. Do not invent metrics, claim financial performance, expose secrets, provide trading advice, or discuss personal information beyond this portfolio. If a question cannot be answered from the dossier, say that briefly and invite the visitor to email funto0707@gmail.com. Keep answers under 90 words.`;
 
-Projects: GradeIQ is a live academic-planning web product. Brain MRI Classifier is a completed TensorFlow/EfficientNetB0 evaluation project for four MRI classes. CropCompass is an agritech harvest-timing decision-support product in development for South-West Nigerian smallholder farmers. Polymarket Trading System is active private market research and execution tooling. ETH Signal Agent is a Ritual Chain testnet learning project; it does not trade or custody funds. Bayse BTC Research Bot is in observation phase and separates observation, paper, and live workflows. Bybit Spot Trading Bot is in demo validation with paper workflows and safety controls.
-
-If a question cannot be answered from this context, say that briefly and invite the visitor to email funto0707@gmail.com. Keep answers under 90 words.`;
+const projectDossiers = {
+  gradeiq: `GradeIQ — live academic-planning web product. It helps students track semesters, calculate CGPA outcomes, plan target grades, and use a serverless integration layer. Role: product design, frontend implementation, integrations.`,
+  'brain-mri': `Brain MRI Classifier — completed transfer-learning evaluation project. It recognises four classes: glioma, meningioma, no tumor, and pituitary. It uses TensorFlow/Keras with EfficientNetB0, a 7,200-image project dataset, and retained training/evaluation artefacts. The reported test accuracy on that project dataset is 92%; it is an evaluation project, not a clinical diagnostic product.`,
+  cropcompass: `CropCompass — in-development agritech decision-support product for South-West Nigerian smallholder farmers. It helps decide when to sell a harvest. It uses commodity-price history to model sell windows, price uncertainty, yield uncertainty, storage costs, farmgate margins, and confidence ranges rather than a single guaranteed price. It currently supports cassava, maize, plantain, tomato, and yam.`,
+  polymarket: `Polymarket Trading System — deployed and operational ETH 5-minute prediction-market bot, used repeatedly in real deployment. It monitors live ETH market inputs and Polymarket CLOB markets, estimates a resolution probability using momentum and volatility context, blends the model estimate with market pricing, and measures the gap against executable prices. It ranks candidate markets with momentum, direction, volume, ATR, edge, and time-to-expiry factors. Before an order it checks the trading window, price bounds, available liquidity, quote freshness, spread, risk state, and position constraints. It uses mean-reversion inversion and trades the NO side when its conditions pass. It includes signed CLOB execution, position monitoring, exits, settlement handling, reconciliation, append-only diagnostics, and risk controls. Do not claim profitability, reveal thresholds/credentials, or give trading advice.`,
+  'eth-agent': `ETH Signal Agent — Ritual Chain testnet learning project. A Solidity contract stores an ETH mean-reversion signal based on a five-price rolling average. Scheduled HTTP and LLM callbacks fetch ETH price data and generate a short rationale. It is testnet-only, does not trade, and does not custody funds.`,
+  bayse: `Bayse BTC Research Bot — observation-phase, fail-closed research system for NGN-denominated BTC binary markets. Observation mode only discovers and evaluates. Paper mode records conservative simulated trades; live mode requires explicit credentials and a separate enablement flag. It uses append-only JSONL logs and persists state so runs can be audited. It makes no profitability claim.`,
+  bybit: `Bybit Spot Trading Bot — demo-validation automated spot-trading system for Bybit V5. It uses a defined EMA/RSI strategy: it looks for a fast EMA above the slow EMA with RSI below the configured overbought threshold, then exits on take-profit, stop-loss, or an EMA trend reversal. It includes a local paper broker, a Bybit Demo Trading path, historical backtests, API/accounting/strategy tests, and explicit flags that prevent live execution by default. It is not represented as profitable or production-ready.`
+};
 
 function rateLimitKey(ip) {
   return `portfolio-assistant:rate:${ip}:${Math.floor(Date.now() / WINDOW_MS)}`;
@@ -60,14 +66,19 @@ export async function POST(request) {
   }
 
   let question;
+  let projectId;
   try {
-    ({ question } = await request.json());
+    ({ question, projectId } = await request.json());
   } catch {
     return Response.json({ error: 'Please send a valid question.' }, { status: 400 });
   }
   if (typeof question !== 'string' || !question.trim() || question.length > 280) {
     return Response.json({ error: 'Questions must be between 1 and 280 characters.' }, { status: 400 });
   }
+
+  const projectContext = typeof projectId === 'string' && projectDossiers[projectId]
+    ? `\n\nSelected project dossier:\n${projectDossiers[projectId]}`
+    : `\n\nPortfolio overview:\n${Object.values(projectDossiers).join('\n\n')}`;
   if (!process.env.VYCE_API_KEY || !process.env.VYCE_API_BASE_URL) {
     return Response.json({ error: 'Assistant is not configured.' }, { status: 503 });
   }
@@ -79,7 +90,7 @@ export async function POST(request) {
       headers: { Authorization: `Bearer ${process.env.VYCE_API_KEY}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         model: process.env.VYCE_MODEL || 'deepseek-v4-flash',
-        messages: [{ role: 'system', content: portfolioContext }, { role: 'user', content: question.trim() }],
+        messages: [{ role: 'system', content: `${portfolioContext}${projectContext}` }, { role: 'user', content: question.trim() }],
         max_tokens: 150,
         temperature: 0.35
       })

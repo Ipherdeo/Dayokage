@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /404.html
 
-Sitemap: https://dayokage.netlify.app/sitemap.xml
+Sitemap: https://dayokage.vercel.app/sitemap.xml

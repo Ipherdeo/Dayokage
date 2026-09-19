@@ -6,7 +6,7 @@ Static portfolio site deployed on Vercel, with a server-side Vyce AI assistant.
 
 Import the GitHub repository into Vercel. The static site is served from the repository root and `api/portfolio-assistant.mjs` becomes the assistant endpoint at `/api/portfolio-assistant`.
 
-Before making the first production deployment public, replace the remaining `https://dayokage.netlify.app/` canonical, Open Graph, schema, and sitemap URLs with the final Vercel or custom-domain URL. Do not guess this URL before Vercel assigns it.
+Production metadata uses `https://dayokage.vercel.app/`. If you later add a custom domain, replace that URL consistently in `index.html`, `404.html`, `robots.txt`, `sitemap.xml`, and `llms.txt`.
 
 Set these environment variables in **Project Settings → Environment Variables**. Add them to both **Production** and **Preview** if you want the assistant available in preview deployments.
 
