@@ -1,0 +1,28 @@
+# Secrets and Vercel's local project metadata
+.env*
+.vercel/
+!.env.example
+
+# Generated verification files and local tooling state
+output/
+.playwright-cli/
+node_modules/
+coverage/
+
+# Personal documents and local planning material — not part of the deployable site
+Ifedayo_CV_v6.docx
+Ifedayo_CV_v6.pdf
+Ifedayo_Otegbola_Cavista_SIWES_Resume.docx
+Ifedayo_Otegbola_Cavista_SIWES_Resume.pdf
+cavista_audit.md
+dayokage_portfolio_roadmap.docx
+portfolio_content_rewrite.md
+MRI_REPO_README_TEMPLATE.md
+brain_mri_classifier.py
+requirements.txt
+tools/
+
+# Operating-system and editor files
+.DS_Store
+Thumbs.db
+.vscode/
