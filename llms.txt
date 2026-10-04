@@ -8,7 +8,7 @@
 ## Projects
 - GradeIQ: Live academic-planning product for Nigerian university students, with CGPA tracking, target-grade planning, and AI-assisted course insights. Live site: https://thegradeiq.vercel.app | Source: https://github.com/Ipherdeo/GradeIQ
 - Brain MRI Classifier: Completed TensorFlow and EfficientNetB0 machine-learning evaluation project. Source: https://github.com/Ipherdeo/Brain-MRI-Classifier
-- CropCompass: Hardened-MVP harvest-timing decision-support product for Ogun State smallholders, combining NBS price patterns, farm inputs, uncertainty ranges, and an AI advisor. Prototype: https://crop-compass-five.vercel.app | Source: https://github.com/Ipherdeo/CropCompass
+- CropCompass: Hardened-MVP harvest-timing decision-support product for Ogun State smallholders, combining NBS price patterns, farm inputs, uncertainty ranges, and an AI advisor. Prototype: https://yourcropcompass.vercel.app | Source: https://github.com/Ipherdeo/CropCompass
 - Polymarket Trading System: Deployed and operational ETH 5-minute prediction-market bot with probability modelling, execution controls, and reconciliation. Public source: https://github.com/Ipherdeo/Polymarket-Trading-Bot
 - ETH Signal Agent: Ritual Chain testnet learning project; current V3 work validates scheduler delivery with a deterministic heartbeat before external callbacks are retried. It does not trade or custody funds. Source: https://github.com/Ipherdeo/ETH-Signal-Agent
 - Bayse BTC Research Bot: Controlled-observation research system for NGN-denominated BTC binary markets, collecting liquidity and spread evidence in selected WAT windows before paper trading. Source: https://github.com/Ipherdeo/Bayse-Bot
